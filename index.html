@@ -375,6 +375,65 @@
   .sun-item { text-align: center; }
   .sun-item .stat-label { justify-content: center; }
   .sun-item .stat-value { font-size: 1.2rem; }
+
+  .footer {
+    margin-top: 2.5rem;
+    text-align: center;
+    padding: 1.5rem;
+    border-top: 1px solid var(--glass-border);
+    border-radius: 24px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-name em { font-style: italic; color: var(--accent); }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.2rem;
+    margin-top: 0.8rem;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-links svg {
+    width: 14px; height: 14px;
+    stroke: currentColor; fill: none; stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  .footer-divider {
+    color: var(--glass-border);
+    font-size: 0.8rem;
+  }
+
+  .footer-built {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    opacity: 0.6;
+  }
 </style>
 </head>
 <body>
@@ -489,6 +548,27 @@
     <div class="forecast-title">5-day forecast</div>
     <div id="forecastList"></div>
   </div>
+
+  <footer class="footer">
+    <div class="footer-name">Built by <em>Clinton Gethi</em></div>
+    <div class="footer-links">
+      <a href="mailto:clintongethi04@gmail.com">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        clintongethi04@gmail.com
+      </a>
+      <span class="footer-divider">·</span>
+      <a href="https://clintongethi.fun" target="_blank">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        clintongethi.fun
+      </a>
+      <span class="footer-divider">·</span>
+      <a href="https://instagram.com/clint_be_me/" target="_blank">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        @clint_be_me
+      </a>
+    </div>
+    <div class="footer-built">Powered by OpenWeatherMap &nbsp;·&nbsp; © 2025 Clinton Gethi</div>
+  </footer>
 </div>
 
 <script>
