@@ -1,0 +1,36 @@
+{
+  "name": "Skies — Weather",
+  "short_name": "Skies",
+  "description": "A beautiful, minimal weather app by Clinton Gethi. Get current conditions, forecasts, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1b2a",
+  "theme_color": "#7ecfff",
+  "lang": "en",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["weather", "utilities"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Search Weather",
+      "short_name": "Search",
+      "description": "Search for weather in any city",
+      "url": "/?action=search"
+    }
+  ]
+}

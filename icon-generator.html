@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skies — Icon Generator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, sans-serif;
+    background: #0d1b2a;
+    color: #f0ede8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  h1 { font-size: 1.4rem; font-weight: 400; opacity: 0.7; letter-spacing: 0.1em; text-transform: uppercase; }
+  .icons-row { display: flex; gap: 3rem; align-items: flex-end; flex-wrap: wrap; justify-content: center; }
+  .icon-wrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .icon-wrap span { font-size: 0.8rem; opacity: 0.5; }
+  canvas { border-radius: 22%; display: block; }
+  button {
+    background: #7ecfff;
+    color: #0d1b2a;
+    border: none;
+    border-radius: 100px;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  button:hover { background: #a8deff; }
+  .note {
+    font-size: 0.8rem;
+    opacity: 0.45;
+    text-align: center;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<h1>Skies — PWA Icons</h1>
+
+<div class="icons-row">
+  <div class="icon-wrap">
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <span>512 × 512</span>
+    <button onclick="download('canvas512', 'icon-512x512.png')">Download</button>
+  </div>
+  <div class="icon-wrap">
+    <canvas id="canvas192" width="192" height="192" style="width:192px;height:192px;"></canvas>
+    <span>192 × 192</span>
+    <button onclick="download('canvas192', 'icon-192x192.png')">Download</button>
+  </div>
+</div>
+
+<p class="note">Download both icons and place them in an <code>icons/</code> folder in your repo root.</p>
+
+<script>
+function drawIcon(canvas) {
+  const s = canvas.width;
+  const ctx = canvas.getContext('2d');
+  const u = s / 512;
+
+  // Background
+  ctx.fillStyle = '#0d1b2a';
+  ctx.fillRect(0, 0, s, s);
+
+  // Stars
+  const stars = [
+    [60,80,1.5],[420,60,1],[340,100,1.2],[480,140,1],[100,160,1.2],
+    [460,200,1],[80,300,1],[440,320,1.2],[60,420,1],[480,400,1]
+  ];
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  stars.forEach(([x,y,r]) => {
+    ctx.beginPath();
+    ctx.arc(x*u, y*u, r*u, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  // Glow behind moon
+  const grd = ctx.createRadialGradient(290*u,170*u,10*u, 290*u,170*u,130*u);
+  grd.addColorStop(0, 'rgba(126,207,255,0.18)');
+  grd.addColorStop(1, 'rgba(126,207,255,0)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0,0,s,s);
+
+  // Moon crescent
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(290*u, 170*u, 95*u, 0, Math.PI*2);
+  ctx.fillStyle = '#c8e8ff';
+  ctx.fill();
+  // Cut-out to make crescent
+  ctx.beginPath();
+  ctx.arc(330*u, 148*u, 82*u, 0, Math.PI*2);
+  ctx.fillStyle = '#0d1b2a';
+  ctx.fill();
+  ctx.restore();
+
+  // Clouds
+  function drawCloud(cx, cy, scale, alpha) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = '#c5d8ed';
+    const puffs = [
+      [cx, cy, 52*scale],
+      [cx-55*scale, cy+18*scale, 38*scale],
+      [cx+55*scale, cy+18*scale, 40*scale],
+      [cx-20*scale, cy+10*scale, 48*scale],
+      [cx+20*scale, cy+8*scale, 46*scale],
+    ];
+    puffs.forEach(([x,y,r]) => {
+      ctx.beginPath();
+      ctx.arc(x*u, y*u, r*u, 0, Math.PI*2);
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  drawCloud(256, 355, 1, 1);
+  drawCloud(130, 390, 0.7, 0.75);
+  drawCloud(390, 375, 0.65, 0.65);
+
+  // "SKIES" wordmark subtle
+  ctx.save();
+  ctx.font = `${Math.round(38*u)}px system-ui, sans-serif`;
+  ctx.fillStyle = 'rgba(126,207,255,0.55)';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = `${6*u}px`;
+  ctx.fillText('SKIES', 256*u, 472*u);
+  ctx.restore();
+}
+
+const c512 = document.getElementById('canvas512');
+const c192 = document.getElementById('canvas192');
+drawIcon(c512);
+drawIcon(c192);
+
+function download(id, filename) {
+  const canvas = document.getElementById(id);
+  const a = document.createElement('a');
+  a.download = filename;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+</script>
+</body>
+</html>
